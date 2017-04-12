@@ -1,6 +1,10 @@
 ## Docker image for ML and Bayes
 
-### Contact me - peter@alephinsights.com
+## TL;DR
+
+1. **Check**: nvidia driver, docker and nvidia-docker installed?
+1. **Build**: `docker build -t petecog/cuda-pymc3:gpu -f Dockerfile.gpu .`
+2. **Run**: 	`nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash`
 
 ## Credits and Refs
 - Built with reference to:
@@ -38,7 +42,7 @@ This will build a Docker image named `cuda-pymc3` with the tag `gpu`.
 Once built you can run the container.
 
 ```bash
-nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<DIR YOU WANT TO USE ON YOUR HOST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash
+nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash
 ```
 
 ## Running the notebook

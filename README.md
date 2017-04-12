@@ -1,5 +1,7 @@
 # docker-builds
 
+### Contact me - peter@alephinsights.com
+
 A collection of docker builds I maintain for various projects.
 
 **Not recommended for production environments.**  Presented as they are with no warranty or guarrantee. Use at your own risk. But if you get in touch with a problem, I'll see what I can do to help
