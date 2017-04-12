@@ -93,3 +93,4 @@ Using gpu device 0: GeForce GTX 1080 (CNMeM is enabled with initial size: 10.0% 
 
  - build a leaner build
  - publish image to docker hub
+ - solve the writing data to host as root problem [a lead on a solution](https://denibertovic.com/posts/handling-permissions-with-docker-volumes/)
