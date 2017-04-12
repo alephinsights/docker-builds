@@ -37,7 +37,6 @@ This will build a Docker image named `cuda-pymc3` with the tag `gpu`.
 ## Running the Docker image as a Container
 Once built you can run the container.
 
-**GPU Version**
 ```bash
 nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<DIR YOU WANT TO USE ON YOUR HOST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash
 ```
@@ -76,4 +75,12 @@ you should get something back that looks like this, showing your driver version 
 |  GPU       PID  Type  Process name                               Usage      |
 |=============================================================================|
 +-----------------------------------------------------------------------------+
+```
+
+Alternativly, from either an ipython shell or note book run `import pymc3`. You should see something the following, which indicates it's found your GPU:
+
+
+```
+Using gpu device 0: GeForce GTX 1080 (CNMeM is enabled with initial size: 10.0% of memory, cuDNN 5110)
+
 ```
