@@ -1,0 +1,38 @@
+FROM aleksaro/python3-nn:8.0-cudnn5-ubuntu16.04
+
+# Install other useful Python packages using pip
+RUN pip3 --no-cache-dir install --upgrade ipython && \
+	pip --no-cache-dir install \
+		pandas \
+		numpy \
+		nose \
+		scikit-learn \		
+		Cython \
+		ipykernel \
+		jupyter \
+		path.py \
+		Pillow \
+		pygments \
+		six \
+		sphinx \
+		wheel \
+		zmq \
+		theano \
+		pymc3 \
+		&& \
+	python3 -m ipykernel.kernelspec
+
+
+# Set up notebook config
+COPY jupyter_notebook_config.py /root/.jupyter/
+
+# Jupyter has issues with being run directly: https://github.com/ipython/ipython/issues/7062
+COPY run_jupyter.sh /root/
+
+RUN chmod +x /root/run_jupyter.sh
+
+# Expose Ports for TensorBoard (6006), Ipython (8888)
+EXPOSE 6006 8888
+
+WORKDIR "/root"
+CMD ["/root/run_jupyter.sh | /bin/bash"]
