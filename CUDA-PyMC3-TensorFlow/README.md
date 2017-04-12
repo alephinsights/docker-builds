@@ -84,3 +84,8 @@ Alternativly, from either an ipython shell or note book run `import pymc3`. You 
 Using gpu device 0: GeForce GTX 1080 (CNMeM is enabled with initial size: 10.0% of memory, cuDNN 5110)
 
 ```
+
+## Things to do / get around to
+
+ - build a leaner build
+ - publish image to docker hub
