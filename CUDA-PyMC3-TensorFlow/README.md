@@ -2,7 +2,7 @@
 
 ## TL;DR
 
-1. **Check**: nvidia driver, docker and nvidia-docker installed?
+1. **Check**: nvidia driver, docker and [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) installed?
 1. **Build**: `docker build -t petecog/cuda-pymc3:gpu -f Dockerfile.gpu .`
 2. **Run**: 	`nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash`
 
