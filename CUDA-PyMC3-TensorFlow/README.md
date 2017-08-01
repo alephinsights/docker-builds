@@ -31,8 +31,8 @@ This is what you get out of the box when you create a container with the provide
 ### Build the Docker image
 
 ```bash
-git clone TBC
-cd TBC
+git clone https://github.com/alephinsights/docker-builds
+cd CUDA-PyMC3-TensorFlow
 docker build -t petecog/cuda-pymc3:gpu -f Dockerfile.gpu .
 ```
 
