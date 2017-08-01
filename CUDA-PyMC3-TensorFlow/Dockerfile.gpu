@@ -6,6 +6,7 @@ RUN pip3 --no-cache-dir install --upgrade ipython && \
 		pandas \
 		numpy \
 		nose \
+		pytest \
 		scikit-learn \
 		Cython \
 		ipykernel \
@@ -29,20 +30,19 @@ RUN pip3 --no-cache-dir install --upgrade ipython && \
 #COPY jupyter_notebook_config.py /root/.jupyter/
 
 COPY run_jupyter.sh /root/
-
 RUN chmod +x /root/run_jupyter.sh
 
 # Expose Ports for TensorBoard (6006), Ipython (8888)
 EXPOSE 6006 8888
 
-RUN mkdir /project && mkdir /home/peter
-COPY jupyter_notebook_config.py /home/peter/.jupyter/
-RUN useradd peter
-RUN chown -R peter:peter /home/peter
+RUN mkdir /project && mkdir /home/user
+COPY jupyter_notebook_config.py /home/user/.jupyter/
+RUN useradd user
+RUN chown -R user:user /home/user
 
 WORKDIR "/project"
-RUN adduser peter root
+#RUN adduser peter root
 #USER peter
 
-#CMD [".run_jupyter.sh | /bin/bash"]
+#CMD ["/root/run_jupyter.sh | /bin/bash"]
 ENTRYPOINT /bin/bash
