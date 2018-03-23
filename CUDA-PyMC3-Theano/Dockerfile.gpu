@@ -76,8 +76,8 @@ WORKDIR "/project"
 
 RUN chown 1000:1000 -R /home/user
 
-RUN echo "alias python=python3" >> /root/.bash_aliases
-RUN echo "alias python=python3" >> /home/user/.bash_aliases
+RUN echo "alias python=python3" >> /root/.bashrc
+RUN echo "alias python=python3" >> /home/user/.bashrc
 
 # Use this line if you want to directly launch jupyter
 #ENTRYPOINT /root/run_jupyter.sh && /bin/bash
