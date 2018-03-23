@@ -60,17 +60,21 @@ RUN pip3 --no-cache-dir install --upgrade ipython && \
 	python3 -m ipykernel.kernelspec
 
 
-#COPY jupyter_notebook_config.py /root/.jupyter/
-COPY run_jupyter.sh /root/
-RUN chmod +x /root/run_jupyter.sh
-
 # Expose Ports for TensorBoard (6006), Ipython (8888)
 EXPOSE 6006 8888
 
 RUN useradd user
+RUN mkdir /home/user
+
+#COPY jupyter_notebook_config.py /root/.jupyter/
+COPY run_jupyter.sh /home/user
+RUN chmod +x /home/user/run_jupyter.sh
+
 RUN mkdir /project
 COPY jupyter_notebook_config.py /home/user/.jupyter/
 WORKDIR "/project"
+
+RUN chown 1000:1000 /home/user
 
 RUN echo "alias python=python3" >> /root/.bash_aliases
 RUN echo "alias python=python3" >> /home/user/.bash_aliases
