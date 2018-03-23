@@ -91,4 +91,8 @@ Using gpu device 0: GeForce GTX 1080 (CNMeM is enabled with initial size: 10.0% 
 
  - build a leaner build
  - publish image to docker hub
- - solve the writing data to host as root problem [a lead on a solution](https://denibertovic.com/posts/handling-permissions-with-docker-volumes/)
+ - solve the writing data to host as root problem [a lead on a solution](https://denibertovic.com/posts/handling-permissions-with-docker-volumes/) at the moment the user is 'hard coded' in the docker build file to be 1000:1000, which is fine if your host user matches, but this is not portable
+ 	- ...possibly... move to a start up script - something like [this](https://stackoverflow.com/questions/34610800/how-to-create-a-docker-image-container-with-same-file-rights-as-host-user)
+	 	- creation of user (specify user in run command)
+	 	- copy of run_jupyter.sh to new user DIR
+	 	- chown of /home/user
