@@ -4,7 +4,7 @@
 
 1. **Check**: nvidia driver, docker and [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) installed?
 1. **Build**: `docker build -t petecog/cuda-pymc3:gpu -f Dockerfile.gpu .`
-2. **Run**: 	`nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash`
+2. **Run**: 	`nvidia-docker run -u 1000:1000 -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/project petecog/cuda-pymc3:gpu bash`
 
 ## Credits and Refs
 - Built with reference to:
@@ -16,7 +16,6 @@
 This is what you get out of the box when you create a container with the provided image/Dockerfile:
 * Base docker image - [aleksaro/python3-nn](https://hub.docker.com/r/aleksaro/python3-nn/)
 * PyMC3 and it's varous dependencies- [https://github.com/pymc-devs/pymc3](https://github.com/pymc-devs/pymc3)
-* Tensorflow
 * Theano
 * scikit-learn
 * Python 3.5 - and various standard bits and pieces (numpy, pandas etc)
@@ -41,17 +40,15 @@ This will build a Docker image named `cuda-pymc3` with the tag `gpu`.
 ## Running the Docker image as a Container
 Once built you can run the container.
 
-```bash
-nvidia-docker run -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/root/sharedfolder petecog/cuda-pymc3:gpu bash
+```
+nvidia-docker run -u 1000:1000 -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/project petecog/cuda-pymc3:gpu bash
 ```
 
 ## Running the notebook
 
-Once running, in the docker terminal type:
+Once up, the image should launch jupyter, which will be accessible via the address in the terminal. If not, or you need to re launch, use the script here:
 
-```
-./run_jupyter.sh
-```
+`/home/user/run_jupyter.sh`
 
 Then point your browser at the url it suggests, and you will be good to go!
 
@@ -93,4 +90,8 @@ Using gpu device 0: GeForce GTX 1080 (CNMeM is enabled with initial size: 10.0% 
 
  - build a leaner build
  - publish image to docker hub
- - solve the writing data to host as root problem [a lead on a solution](https://denibertovic.com/posts/handling-permissions-with-docker-volumes/)
+ - solve the writing data to host as root problem [a lead on a solution](https://denibertovic.com/posts/handling-permissions-with-docker-volumes/) at the moment the user is 'hard coded' in the docker build file to be 1000:1000, which is fine if your host user matches, but this is not portable
+ 	- ...possibly... move to a start up script - something like [this](https://stackoverflow.com/questions/34610800/how-to-create-a-docker-image-container-with-same-file-rights-as-host-user)
+	 	- creation of user (specify user in run command)
+	 	- copy of run_jupyter.sh to new user DIR
+	 	- chown of /home/user
