@@ -74,7 +74,7 @@ RUN mkdir /project
 COPY jupyter_notebook_config.py /home/user/.jupyter/
 WORKDIR "/project"
 
-RUN chown 1000:1000 /home/user
+RUN chown 1000:1000 -R /home/user
 
 RUN echo "alias python=python3" >> /root/.bash_aliases
 RUN echo "alias python=python3" >> /home/user/.bash_aliases

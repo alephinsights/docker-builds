@@ -49,7 +49,7 @@ nvidia-docker run -u 1000:1000 -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU W
 
 Once up, the image should launch jupyter, which will be accessible via the address in the terminal. If not, or you need to re launch, use the script here:
 
-`/root/run_jupyter.sh`
+`/home/user/run_jupyter.sh`
 
 Then point your browser at the url it suggests, and you will be good to go!
 
