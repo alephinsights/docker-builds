@@ -1,0 +1,85 @@
+FROM ubuntu:16.04
+
+# Install basic programs and dependencies
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        build-essential \
+        byobu \
+        curl \
+        g++ \
+        gcc \
+        gfortran \
+        git \
+        make \
+        nano \
+        pkg-config \
+        rsync \
+        unzip \
+        wget
+
+# Install basic packages and miscellaneous dependencies
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    liblapack-dev \
+    libopenblas-dev \
+    libzmq3-dev \
+    python3 \
+    python3-dev \
+    python3-pip \
+    python3-setuptools \
+    python3-tk
+
+# Upgrade pip and setuptools
+RUN pip3 install --upgrade \
+    setuptools \
+    pip
+
+
+# Install other useful Python packages using pip
+RUN pip3 --no-cache-dir install --upgrade ipython && \
+	pip3 --no-cache-dir install \
+		pandas \
+		numpy \
+		nose \
+		pytest \
+		scikit-learn \
+		Cython \
+		ipykernel \
+		ipython \
+		jupyter \
+		path.py \
+		Pillow \
+		pygments \
+		six \
+		sphinx \
+		wheel \
+		zmq \
+		theano \
+		pymc3 \
+		nltk \
+		matplotlib \
+		&& \
+	python3 -m ipykernel.kernelspec
+
+
+# Expose Ports for TensorBoard (6006), Ipython (8888)
+EXPOSE 6006 8888
+
+RUN useradd user
+RUN mkdir /home/user
+
+#COPY jupyter_notebook_config.py /root/.jupyter/
+COPY run_jupyter.sh /home/user
+RUN chmod +x /home/user/run_jupyter.sh
+
+RUN mkdir /project
+COPY jupyter_notebook_config.py /home/user/.jupyter/
+WORKDIR "/project"
+
+RUN chown 1000:1000 -R /home/user
+
+RUN echo "alias python=python3" >> /root/.bashrc
+RUN echo "alias python=python3" >> /home/user/.bashrc
+
+# Use this line if you want to directly launch jupyter
+#ENTRYPOINT /root/run_jupyter.sh && /bin/bash
+# Use this line if you want a terminal and then manually launch jupyter
+ENTRYPOINT /bin/bash
