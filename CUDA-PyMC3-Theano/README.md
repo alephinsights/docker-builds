@@ -4,7 +4,7 @@
 
 1. **Check**: nvidia driver, docker and [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) installed?
 1. **Build**: `docker build -t petecog/cuda-pymc3:gpu -f Dockerfile.gpu .`
-2. **Run**: 	`docker --runtime=nvidia run -u 1000:1000 -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/project petecog/cuda-pymc3:gpu bash`
+2. **Run**: 	`docker run --runtime=nvidia -u 1000:1000 -it -p 8888:8888 -p 6006:6006 -v /<HOST DIR YOU WANT TO USE ON GUEST>:/project petecog/cuda-pymc3:gpu bash`
 
 ## Credits and Refs
 - Built with reference to:
